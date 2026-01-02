@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>EngTech Lab | 科技教育網站示範</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- 可換成你喜歡的字體 -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-elevated: #0b1020;
+      --bg-soft: #101936;
+      --accent: #4f46e5;
+      --accent-soft: rgba(79, 70, 229, 0.15);
+      --accent-strong: #a855f7;
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --card-radius: 20px;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.6);
+      --border-soft: 1px solid rgba(148, 163, 184, 0.18);
+      --transition-fast: 180ms ease-out;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(147, 51, 234, 0.2), transparent 55%),
+        var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrapper {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 20px 16px 60px;
+    }
+
+    /* Header / Nav */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-shell {
+      margin-bottom: 18px;
+      border-radius: 999px;
+      padding: 8px 14px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      background: radial-gradient(circle at 0 0, rgba(79, 70, 229, 0.5), transparent 45%),
+                  rgba(15, 23, 42, 0.9);
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      box-shadow: 0 10px 25px rgba(79, 70, 229, 0.7);
+    }
+
+    .brand-text-main {
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      font-size: 18px;
+    }
+
+    .brand-text-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .nav-link {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: background var(--transition-fast), color var(--transition-fast),
+                  transform var(--transition-fast), border-color var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .nav-link:hover {
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      transform: translateY(-1px);
+    }
+
+    .nav-link.active {
+      background: var(--accent-soft);
+      color: #e0e7ff;
+      border-color: rgba(129, 140, 248, 0.8);
+    }
+
+    .nav-cta {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      color: #f9fafb;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 10px 30px rgba(88, 28, 135, 0.7);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px) translateX(0.5px);
+      box-shadow: 0 14px 35px rgba(88, 28, 135, 0.9);
+    }
+
+    .nav-cta span.icon {
+      font-size: 16px;
+    }
+
+    /* Mobile nav toggle */
+    .nav-toggle {
+      display: none;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.9);
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 720px) {
+      .nav-shell {
+        padding: 8px 12px;
+      }
+
+      nav {
+        display: none;
+        position: absolute;
+        top: 52px;
+        right: 16px;
+        left: 16px;
+        padding: 10px;
+        border-radius: 18px;
+        background: rgba(15, 23, 42, 0.97);
+        border: 1px solid rgba(148, 163, 184, 0.3);
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      nav.open {
+        display: flex;
+      }
+
+      .nav-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .nav-cta {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    /* Layout / Pages */
+    main {
+      margin-top: 10px;
+    }
+
+    .page {
+      display: none;
+      animation: fadeIn 220ms ease-out;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section-shell {
+      border-radius: 26px;
+      padding: 26px 22px 28px;
+      border: var(--border-soft);
+      background: radial-gradient(circle at top right, rgba(79, 70, 229, 0.28), transparent 50%),
+                  radial-gradient(circle at bottom left, rgba(59, 130, 246, 0.24), transparent 55%),
+                  rgba(15, 23, 42, 0.94);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 18px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .section-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      max-width: 420px;
+    }
+
+    .section-tag {
+      font-size: 11px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.95);
+      color: #e5e7eb;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .section-tag-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #4ade80;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.35);
+    }
+
+    /* Home page */
+    .home-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 880px) {
+      .home-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-card {
+      border-radius: var(--card-radius);
+      padding: 22px 20px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.98));
+      border: var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .hero-pill span.accent {
+      color: #a5b4fc;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-title {
+      font-size: clamp(24px, 3vw, 32px);
+      line-height: 1.18;
+      margin-bottom: 10px;
+    }
+
+    .hero-title span.highlight {
+      background: linear-gradient(135deg, #38bdf8, #a855f7);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-text {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin-bottom: 18px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .btn-primary {
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      color: #f9fafb;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 12px 28px rgba(79, 70, 229, 0.8);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 34px rgba(79, 70, 229, 0.95);
+    }
+
+    .btn-ghost {
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-muted);
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(15, 23, 42, 0.98);
+      color: #e5e7eb;
+      border-color: rgba(148, 163, 184, 0.8);
+    }
+
+    .hero-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .metric-item {
+      padding: 8px 10px;
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      min-width: 90px;
+    }
+
+    .metric-value {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .hero-orbit {
+      border-radius: var(--card-radius);
+      padding: 20px 18px;
+      background: radial-gradient(circle at 0 0, rgba(129, 140, 248, 0.22), transparent 55%),
+                  radial-gradient(circle at 100% 100%, rgba(45, 212, 191, 0.18), transparent 55%),
+                  rgba(15, 23, 42, 0.96);
+      border: var(--border-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .orbit-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .orbit-text {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .orbit-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      font-size: 12px;
+    }
+
+    .orbit-chip {
+      padding: 9px 10px;
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .orbit-chip-label {
+      color: #e5e7eb;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .orbit-chip-desc {
+      color: var(--text-muted);
+    }
+
+    .orbit-chip-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    .orbit-footer {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      border-radius: 99px;
+      padding: 7px 10px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px dashed rgba(148, 163, 184, 0.6);
+    }
+
+    /* Courses (Inner Page) */
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px;
+    }
+
+    .course-card {
+      border-radius: 22px;
+      padding: 16px 15px 15px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.96));
+      border: var(--border-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .course-card::before {
+      content: "";
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.22), transparent 70%);
+      right: -40px;
+      top: -60px;
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+      pointer-events: none;
+    }
+
+    .course-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 35px rgba(15, 23, 42, 0.9);
+      border-color: rgba(129, 140, 248, 0.8);
+    }
+
+    .course-card:hover::before {
+      opacity: 1;
+    }
+
+    .course-tag-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .course-tag {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--text-muted);
+    }
+
+    .course-level {
+      font-size: 11px;
+      color: #a5b4fc;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .course-title {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .course-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .course-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: center;
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .course-meta span strong {
+      color: #e5e7eb;
+    }
+
+    .course-footer {
+      margin-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .course-btn {
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(129, 140, 248, 0.9);
+      background: rgba(37, 99, 235, 0.25);
+      color: #e0e7ff;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .course-btn:hover {
+      background: rgba(37, 99, 235, 0.4);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(37, 99, 235, 0.6);
+    }
+
+    .course-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      font-size: 10px;
+    }
+
+    .badge {
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--text-muted);
+    }
+
+    /* Article Page */
+    .article-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.5fr);
+      gap: 22px;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 900px) {
+      .article-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .article-sidebar {
+      border-radius: 22px;
+      padding: 16px 14px;
+      background: rgba(15, 23, 42, 0.98);
+      border: var(--border-soft);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .article-filter-title {
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .article-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 13px;
+    }
+
+    .article-item {
+      padding: 9px 10px;
+      border-radius: 14px;
+      cursor: pointer;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      background: rgba(15, 23, 42, 0.94);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      transition: border-color var(--transition-fast), background var(--transition-fast),
+                  transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .article-item:hover {
+      border-color: rgba(129, 140, 248, 0.9);
+      background: rgba(15, 23, 42, 0.98);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.7);
+    }
+
+    .article-item.active {
+      border-color: rgba(129, 140, 248, 1);
+      background: rgba(30, 64, 175, 0.5);
+    }
+
+    .article-item-title {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .article-item-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .article-main {
+      border-radius: 24px;
+      padding: 18px 18px 20px;
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.16), transparent 55%),
+                  rgba(15, 23, 42, 0.98);
+      border: var(--border-soft);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .article-tag-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .article-tag {
+      font-size: 11px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(129, 140, 248, 0.7);
+      color: #e0e7ff;
+    }
+
+    .article-reading-time {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .article-title-main {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .article-meta-main {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .article-body {
+      font-size: 14px;
+      color: #e5e7eb;
+      line-height: 1.7;
+    }
+
+    .article-body p + p {
+      margin-top: 8px;
+    }
+
+    .article-body h3 {
+      margin-top: 14px;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    .article-body ul {
+      margin-left: 18px;
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+
+    .article-body li {
+      margin-bottom: 4px;
+    }
+
+    footer {
+      margin-top: 18px;
+      font-size: 11px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    footer span {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- NAV -->
+    <header>
+      <div class="nav-shell">
+        <div class="brand">
+          <div class="brand-logo">⚡</div>
+          <div>
+            <div class="brand-text-main">EngTech Lab</div>
+            <div class="brand-text-sub">Kids Coding · AI · 創客教室</div>
+          </div>
+        </div>
+        <button class="nav-toggle" id="navToggle">
+          選單
+          <span>☰</span>
+        </button>
+        <nav id="navMenu">
+          <button class="nav-link active" data-nav="home">首頁</button>
+          <button class="nav-link" data-nav="courses">課程方案</button>
+          <button class="nav-link" data-nav="article">教學專欄</button>
+          <button class="nav-cta" data-nav="courses">
+            <span class="icon">🎯</span>
+            預約體驗課
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- HOME PAGE -->
+      <section class="page active" id="home" data-page>
+        <div class="section-shell">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">讓孩子把「玩遊戲」變成「做遊戲」</h2>
+              <p class="section-subtitle">
+                結合 Scratch、Micro:bit、Python 與 AI，將抽象的程式思維，變成看得到、玩得到的科技作品。
+              </p>
+            </div>
+            <div class="section-tag">
+              <span class="section-tag-dot"></span>
+              即時更新：2026 學期版課程
+            </div>
+          </div>
+
+          <div class="home-grid">
+            <!-- Hero -->
+            <article class="hero-card">
+              <div class="hero-pill">
+                <span class="accent">🚀 以專案為核心的科技教育</span>
+                <span>適合國小中高年級到國中</span>
+              </div>
+              <h1 class="hero-title">
+                從 <span class="highlight">Scratch</span> 到
+                <span class="highlight">Python</span>，一步一步打造孩子的程式自信。
+              </h1>
+              <p class="hero-text">
+                我們不是只教語法，而是讓孩子在「做出作品」的過程中，學會拆解問題、邏輯思考與團隊合作。
+              </p>
+              <div class="hero-actions">
+                <button class="btn-primary" data-nav="courses">
+                  查看課程地圖
+                  <span>➡</span>
+                </button>
+                <button class="btn-ghost" data-nav="article">
+                  閱讀教學理念
+                  <span>📚</span>
+                </button>
+              </div>
+              <div class="hero-metrics">
+                <div class="metric-item">
+                  <div class="metric-value">380+</div>
+                  <div>累積學員人次</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-value">92%</div>
+                  <div>續報與推薦比例</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-value">12 週</div>
+                  <div>專案實作完整循環</div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Orbit info -->
+            <aside class="hero-orbit">
+              <div>
+                <div class="orbit-title">科技教室一日觀察</div>
+                <p class="orbit-text">
+                  我們把課堂設計成「實驗室」，每一堂課都有可以帶回家的作品：遊戲、互動海報、智慧感測裝置。
+                </p>
+              </div>
+              <div class="orbit-grid">
+                <div class="orbit-chip">
+                  <div class="orbit-chip-label">
+                    <span class="orbit-chip-dot"></span>
+                    Scratch 遊戲設計
+                  </div>
+                  <div class="orbit-chip-desc">
+                    角色設計、關卡企劃，從玩家角度學習邏輯與條件判斷。
+                  </div>
+                </div>
+                <div class="orbit-chip">
+                  <div class="orbit-chip-label">
+                    <span class="orbit-chip-dot" style="background:#38bdf8;"></span>
+                    Micro:bit 感測專題
+                  </div>
+                  <div class="orbit-chip-desc">
+                    溫度、光線、加速度等感測器，把程式接上真實世界。
+                  </div>
+                </div>
+                <div class="orbit-chip">
+                  <div class="orbit-chip-label">
+                    <span class="orbit-chip-dot" style="background:#f97316;"></span>
+                    Python x 資料故事
+                  </div>
+                  <div class="orbit-chip-desc">
+                    用資料畫出圖表，說出屬於自己的數據故事。
+                  </div>
+                </div>
+                <div class="orbit-chip">
+                  <div class="orbit-chip-label">
+                    <span class="orbit-chip-dot" style="background:#a855f7;"></span>
+                    AI 助教陪練
+                  </div>
+                  <div class="orbit-chip-desc">
+                    線上 AI 助教協助除錯，讓孩子敢問、敢試、不怕錯。
+                  </div>
+                </div>
+              </div>
+              <div class="orbit-footer">
+                <span>📌 支援線上 / 線下混成教學</span>
+                <span>家長可查看每週學習紀錄</span>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- COURSES PAGE -->
+      <section class="page" id="courses" data-page>
+        <div class="section-shell">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">課程學習路徑</h2>
+              <p class="section-subtitle">
+                從圖像化積木到文字程式語言，循序漸進設計三階段課程，讓孩子「先懂概念，再談進階技巧」。
+              </p>
+            </div>
+            <div class="section-tag">
+              <span class="section-tag-dot"></span>
+              推薦：每週一次 · 每次 90 分鐘
+            </div>
+          </div>
+
+          <div class="course-grid">
+            <!-- Scratch -->
+            <article class="course-card">
+              <div class="course-tag-row">
+                <span class="course-tag">階段一 · Scratch 創意程式</span>
+                <span class="course-level">👶 初階</span>
+              </div>
+              <h3 class="course-title">Scratch 遊戲設計與動畫故事班</h3>
+              <p class="course-desc">
+                適合第一次接觸程式的孩子，透過角色扮演、闖關遊戲與互動動畫，建立「事件、條件、迴圈」等核心概念。
+              </p>
+              <div class="course-meta">
+                <span><strong>8 週</strong> · 每週 1 堂</span>
+                <span>作品：互動小遊戲、故事動畫</span>
+              </div>
+              <div class="course-footer">
+                <button class="course-btn" data-nav="article">
+                  看看教學理念
+                  <span>📖</span>
+                </button>
+                <div class="course-badges">
+                  <span class="badge">國小 3–6 年級</span>
+                  <span class="badge">圖像化程式</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Micro:bit -->
+            <article class="course-card">
+              <div class="course-tag-row">
+                <span class="course-tag">階段二 · 實體感測與創客</span>
+                <span class="course-level">🛠 進階</span>
+              </div>
+              <h3 class="course-title">Micro:bit 智慧感測與創客專題</h3>
+              <p class="course-desc">
+                利用 Micro:bit 與簡易電子元件，製作溫度警報器、計步器與互動小夜燈，讓孩子體會程式如何改變生活。
+              </p>
+              <div class="course-meta">
+                <span><strong>10 週</strong> · 專題導向</span>
+                <span>作品：IoT 小作品、感測實驗</span>
+              </div>
+              <div class="course-footer">
+                <button class="course-btn" data-nav="article">
+                  查看示範專案
+                  <span>💡</span>
+                </button>
+                <div class="course-badges">
+                  <span class="badge">Micro:bit</span>
+                  <span class="badge">STEAM</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Python -->
+            <article class="course-card">
+              <div class="course-tag-row">
+                <span class="course-tag">階段三 · Python & AI</span>
+                <span class="course-level">🎓 進階+</span>
+              </div>
+              <h3 class="course-title">Python 程式與 AI 入門實作</h3>
+              <p class="course-desc">
+                從基礎語法、資料結構到簡單的 AI 應用，例如圖像辨識與聊天機器人，建立與未來接軌的程式能力。
+              </p>
+              <div class="course-meta">
+                <span><strong>12 週</strong> · 專案制</span>
+                <span>作品：資料小專題、AI 小工具</span>
+              </div>
+              <div class="course-footer">
+                <button class="course-btn" data-nav="article">
+                  了解課程設計
+                  <span>🤖</span>
+                </button>
+                <div class="course-badges">
+                  <span class="badge">國小高年級 / 國中</span>
+                  <span class="badge">Python</span>
+                  <span class="badge">AI 應用</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Custom / 內頁示範 -->
+            <article class="course-card">
+              <div class="course-tag-row">
+                <span class="course-tag">客製方案 · 校園 / 機構</span>
+                <span class="course-level">🏫 校園合作</span>
+              </div>
+              <h3 class="course-title">跨國遠距 / 校園科技營隊規劃</h3>
+              <p class="course-desc">
+                支援學校、補教與企業 CSR 計畫，設計專屬的科技營隊或學期課程，包含雙語教學與線上協作平台。
+              </p>
+              <div class="course-meta">
+                <span><strong>彈性規劃</strong> · 依時數客製</span>
+                <span>形式：遠距 / 實體 / 混成</span>
+              </div>
+              <div class="course-footer">
+                <button class="course-btn" onclick="alert('可以在此串接表單或聯絡方式')">
+                  索取課程企劃書
+                  <span>📨</span>
+                </button>
+                <div class="course-badges">
+                  <span class="badge">Google Classroom</span>
+                  <span class="badge">國際合作</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ARTICLE PAGE -->
+      <section class="page" id="article" data-page>
+        <div class="section-shell">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">教學專欄 · EdTech 思考</h2>
+              <p class="section-subtitle">
+                將實際帶班經驗整理成文章，分享如何在課堂中平衡「玩樂」、「學習」與「未來能力」。
+              </p>
+            </div>
+            <div class="section-tag">
+              <span class="section-tag-dot"></span>
+              新文章每月更新一次
+            </div>
+          </div>
+
+          <div class="article-layout">
+            <!-- Sidebar list -->
+            <aside class="article-sidebar">
+              <div class="article-filter-title">選擇一篇文章：</div>
+              <div class="article-list" id="articleList">
+                <!-- 動態插入文章列表 -->
+              </div>
+            </aside>
+
+            <!-- Article content -->
+            <article class="article-main">
+              <div class="article-tag-row">
+                <span class="article-tag" id="articleTag">EdTech · 專題教學</span>
+                <span class="article-reading-time" id="articleReadingTime">
+                  ⏱ 約 5 分鐘閱讀
+                </span>
+              </div>
+              <h3 class="article-title-main" id="articleTitle">
+                用「專案制」打造有記憶點的程式課
+              </h3>
+              <div class="article-meta-main" id="articleMeta">
+                發佈日期：2026-01-02 · 適合對象：國小高年級 / 國中
+              </div>
+              <div class="article-body" id="articleBody">
+                <!-- 動態插入文章內容 -->
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>© 2026 EngTech Lab · 科技教育網站示範版。你可以自由修改內容與樣式。</span>
+    </footer>
+  </div>
+
+  <script>
+    // ---------- SPA 導覽 ----------
+    const pages = document.querySelectorAll("[data-page]");
+    const navLinks = document.querySelectorAll("[data-nav]");
+    const navMenu = document.getElementById("navMenu");
+    const navToggle = document.getElementById("navToggle");
+
+    function showPage(id) {
+      pages.forEach((page) => {
+        page.classList.toggle("active", page.id === id);
+      });
+
+      navLinks.forEach((link) => {
+        if (link.classList.contains("nav-link")) {
+          link.classList.toggle("active", link.dataset.nav === id);
+        }
+      });
+
+      // 捲到頁面上方
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      // 手機版關閉選單
+      if (window.innerWidth <= 720) {
+        navMenu.classList.remove("open");
+      }
+    }
+
+    navLinks.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = btn.dataset.nav;
+        if (target) {
+          showPage(target);
+        }
+      });
+    });
+
+    // 手機選單開關
+    navToggle.addEventListener("click", () => {
+      navMenu.classList.toggle("open");
+    });
+
+    // ---------- 文章資料 ----------
+    const articleData = [
+      {
+        id: "project-based-learning",
+        title: "為什麼我們選擇「專案制」而不是「寫習題」？",
+        tag: "教學設計 · PBL",
+        readTime: "約 5 分鐘閱讀",
+        date: "2026-01-02",
+        audience: "家長 / 老師",
+        body: `
+          <p>
+            很多家長會問：「孩子寫很多題目，成績不是就會變好嗎？」在程式課裡，若只做大量題目，
+            孩子很容易把學習等同於「考試」，卻忘了程式真正的價值，是解決問題與創造作品。
+          </p>
+          <p>
+            因此我們以 <strong>專案制 (Project-Based Learning)</strong> 設計課程：每一個單元，都有清楚的作品目標，
+            包含遊戲、互動作品或感測專題。孩子在思考「我要做什麼樣的作品？」的同時，也會自然練習需求分析、拆解任務與規劃進度。
+          </p>
+          <h3>專案制的三個關鍵好處</h3>
+          <ul>
+            <li><strong>記得住：</strong> 每個作品背後都有故事，比起公式更容易被記住。</li>
+            <li><strong>看得見：</strong> 家長與孩子都可以看到成果，學習成就感更明確。</li>
+            <li><strong>說得出：</strong> 孩子可以向同學或評審介紹作品，練習表達與簡報能力。</li>
+          </ul>
+          <p>
+            在設計課程時，我們會刻意留下一些「模糊地帶」，讓孩子自己做小小的實驗，嘗試不同寫法再比較優劣。
+            這種探索的過程，往往比單純抄寫解答更能培養真正的問題解決能力。
+          </p>
+        `
+      },
+      {
+        id: "scratch-to-python",
+        title: "從 Scratch 過渡到 Python：我們怎麼設計不斷層？",
+        tag: "學習路徑 · Scratch → Python",
+        readTime: "約 6 分鐘閱讀",
+        date: "2025-12-10",
+        audience: "國小高年級 / 國中",
+        body: `
+          <p>
+            很多孩子在 Scratch 表現很好，一進到 Python 卻突然卡關。關鍵不是能力，而是
+            <strong>心態與轉換設計</strong>：從「拖積木」變成「打字」，
+            若沒有設計好過渡期，很容易讓孩子覺得「程式變得好難」。
+          </p>
+          <p>
+            在課程設計上，我們會先從孩子熟悉的 Scratch 專案出發，例如計時器或小遊戲，
+            然後用簡化版的 Python 一步一步重現同樣的邏輯，讓孩子發現：<em>原來只是寫法不同，想法是一樣的。</em>
+          </p>
+          <h3>三個過渡設計小技巧</h3>
+          <ul>
+            <li><strong>一一對應：</strong> 把 Scratch 積木與 Python 語法做對照表，降低陌生感。</li>
+            <li><strong>容錯設計：</strong> 先教可讀性高、結構清楚的寫法，不急著追求「最短程式碼」。</li>
+            <li><strong>專題延伸：</strong> 讓孩子把熟悉的 Scratch 作品，改寫成 Python 版，感受成長。</li>
+          </ul>
+          <p>
+            當孩子發現自己可以用 Python 寫出「看得懂、玩得動」的作品時，自信會自然提升，
+            也更願意接受之後的進階觀念，例如函式、模組與資料結構。
+          </p>
+        `
+      },
+      {
+        id: "ai-assistant",
+        title: "讓 AI 當「助教」而不是「答案機」",
+        tag: "AI 教育 · 學習策略",
+        readTime: "約 4 分鐘閱讀",
+        date: "2025-11-05",
+        audience: "對 AI 教學感興趣的家長 / 老師",
+        body: `
+          <p>
+            現在的孩子很快就會接觸到各種 AI 工具，如果只把 AI 當成「可以幫我把作業寫完」的答案機，
+            其實會錯過一個練習思考與提問的好機會。
+          </p>
+          <p>
+            在我們的課程裡，AI 的角色是 <strong>助教</strong>：可以幫忙解釋錯誤訊息、提供不同寫法建議、
+            甚至協助孩子產生作品點子，但最後做決定的，永遠是學習者自己。
+          </p>
+          <h3>如何教孩子正確使用 AI？</h3>
+          <ul>
+            <li>請孩子先自己寫出「版本 0」，再請 AI 幫忙調整與優化。</li>
+            <li>遇到錯誤時，優先請孩子自己猜原因，再用 AI 驗證想法。</li>
+            <li>讓孩子練習對 AI 下「好問題」，包含限制條件與期待成果。</li>
+          </ul>
+          <p>
+            這樣的使用方式，可以讓 AI 變成「思考的放大器」，而不是「思考的替代品」。
+            長期下來，孩子會更有能力駕馭工具，而不是被工具牽著走。
+          </p>
+        `
+      }
+    ];
+
+    // DOM elements for main article
+    const articleListEl = document.getElementById("articleList");
+    const articleTagEl = document.getElementById("articleTag");
+    const articleReadingTimeEl = document.getElementById("articleReadingTime");
+    const articleTitleEl = document.getElementById("articleTitle");
+    const articleMetaEl = document.getElementById("articleMeta");
+    const articleBodyEl = document.getElementById("articleBody");
+
+    let currentArticleId = articleData[0].id;
+
+    function renderArticleList() {
+      articleListEl.innerHTML = "";
+      articleData.forEach((article) => {
+        const item = document.createElement("button");
+        item.className = "article-item";
+        if (article.id === currentArticleId) {
+          item.classList.add("active");
+        }
+        item.dataset.articleId = article.id;
+        item.innerHTML = `
+          <div class="article-item-title">${article.title}</div>
+          <div class="article-item-meta">
+            <span>${article.tag}</span>
+            <span>${article.readTime}</span>
+          </div>
+        `;
+        item.addEventListener("click", () => {
+          currentArticleId = article.id;
+          renderArticleList();
+          renderArticle(article.id);
+        });
+        articleListEl.appendChild(item);
+      });
+    }
+
+    function renderArticle(id) {
+      const article = articleData.find((a) => a.id === id) || articleData[0];
+      articleTagEl.textContent = article.tag;
+      articleReadingTimeEl.textContent = "⏱ " + article.readTime;
+      articleTitleEl.textContent = article.title;
+      articleMetaEl.textContent =
+        "發佈日期：" + article.date + " · 適合對象：" + article.audience;
+      articleBodyEl.innerHTML = article.body;
+    }
+
+    // 初始化
+    renderArticleList();
+    renderArticle(currentArticleId);
+  </script>
+</body>
+</html>
