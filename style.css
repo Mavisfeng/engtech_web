@@ -1,0 +1,210 @@
+/* ========== 全站基礎設定 ========== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Helvetica Neue", Arial;
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+/* 主容器 */
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 主要內容 */
+main {
+  flex: 1;
+}
+
+/* ========== 導覽列 ========== */
+header {
+  background: linear-gradient(135deg, #0ea5e9, #6366f1);
+  padding: 12px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-shell {
+  max-width: 1000px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.brand-logo {
+  font-size: 28px;
+}
+
+.brand-text-main {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.nav-toggle {
+  display: none;
+  background: #0f172a;
+  color: white;
+  border-radius: 12px;
+  padding: 6px 10px;
+}
+
+nav {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.nav-link,
+.nav-cta {
+  border-radius: 999px;
+  border: none;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.nav-link {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+.nav-link.active {
+  background: white;
+  color: #0f172a;
+}
+
+.nav-cta {
+  background: #22c55e;
+}
+
+/* ========== 區塊標準樣式 ========== */
+
+.section-shell {
+  max-width: 1000px;
+  margin: auto;
+  padding: 30px 18px;
+}
+
+.section-title {
+  font-size: 26px;
+  margin-bottom: 6px;
+}
+
+.section-subtitle {
+  opacity: 0.8;
+  margin-top: 0;
+}
+
+/* ========== 單頁切換 ========== */
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+/* ========== Hero ========== */
+
+.hero-card {
+  background: #020617;
+  border-radius: 18px;
+  padding: 20px;
+}
+
+.hero-title {
+  font-size: 30px;
+}
+
+.highlight {
+  color: #0ea5e9;
+}
+
+.btn-primary,
+.btn-ghost {
+  border-radius: 999px;
+  padding: 8px 14px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #22c55e;
+}
+
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+.btn-ghost-strong {
+  background: white;
+  color: #0f172a;
+}
+
+/* ========== 文章列表區 ========== */
+
+#articleList {
+  margin-top: 18px;
+}
+
+.article-item {
+  width: 100%;
+  text-align: left;
+  background: #020617;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid #1e293b;
+  margin-bottom: 10px;
+  cursor: pointer;
+  color: #e5e7eb;
+}
+
+.article-item.active {
+  border-color: #38bdf8;
+}
+
+#articleBody {
+  margin-top: 12px;
+  background: #020617;
+  padding: 14px;
+  border-radius: 12px;
+}
+
+/* ========== Footer ========== */
+footer {
+  text-align: center;
+  padding: 15px;
+  opacity: 0.7;
+}
+
+/* ========== RWD ========== */
+@media (max-width: 720px) {
+  nav {
+    display: none;
+  }
+
+  nav.open {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav-toggle {
+    display: block;
+  }
+}
