@@ -216,6 +216,53 @@ footer {
     0 18px 45px rgba(15, 23, 42, 0.9),
     0 0 25px rgba(56, 189, 248, 0.4);
 }
+
+.checkin-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.checkin-card {
+  background: #020617;
+  border-radius: 20px;
+  padding: 14px 14px 16px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.7);
+}
+
+.checkin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkin-tag {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+}
+
+.checkin-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-sm {
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
+/* RWD */
+@media (max-width: 720px) {
+  .checkin-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* 讓 iframe 本身也有圓角 */
 .calendar-embed {
   width: 100%;
