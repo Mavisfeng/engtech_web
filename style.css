@@ -472,6 +472,83 @@ footer {
   content: "• ";
   color: #22c55e;
 }
+/* ===== FAQ 區塊 ===== */
+
+.faq-card {
+  margin-top: 20px;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.faq-item {
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  padding: 10px 12px;
+}
+
+/* 移除預設箭頭樣式，改成客製 */
+.faq-item > summary {
+  list-style: none;
+}
+
+.faq-item::-webkit-details-marker {
+  display: none;
+}
+
+.faq-question {
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: #e5e7eb;
+}
+
+/* 客製箭頭 */
+.faq-question::after {
+  content: "＋";
+  font-size: 0.9rem;
+  color: #facc15;
+  transition: transform 0.15s ease;
+}
+
+.faq-item[open] .faq-question::after {
+  content: "－";
+}
+
+/* 答案文字 */
+.faq-answer {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px dashed rgba(148, 163, 184, 0.5);
+  font-size: 0.9rem;
+  color: #cbd5f5;
+  line-height: 1.6;
+}
+
+/* RWD 微調 */
+@media (max-width: 768px) {
+  .faq-item {
+    padding: 10px;
+  }
+
+  .faq-question {
+    font-size: 0.9rem;
+  }
+
+  .faq-answer {
+    font-size: 0.85rem;
+  }
+}
+
+
 
 /* 底部 CTA */
 .pricing-footer {
