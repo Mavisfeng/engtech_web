@@ -297,43 +297,45 @@ footer {
 /* ========== news frontpage ========== */
 .latest-courses {
   margin-top: 32px;
-  padding: 24px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, #ffffff 0%, #f3f6ff 100%);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  padding: 24px 28px;
+  border-radius: 24px;
+  background: #020617;        /* 深色底，接近 hero-card 的感覺 */
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
 }
 
+/* 標題顏色改亮一點，才看得到 */
 .latest-courses .section-title {
   margin-bottom: 16px;
   font-size: 1.6rem;
+  color: #e5e7eb;
 }
 
+/* 課程列表維持三欄 RWD */
 .course-list {
   display: grid;
   gap: 16px;
   grid-template-columns: repeat(3, 1fr);
 }
 
+/* 個別課程卡片：用稍微淺一點的深藍，跟背景有層次 */
 .course-card {
   padding: 16px;
-  border-radius: 14px;
-  background: #ffffff;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  border-radius: 16px;
+  background: #02081f;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  color: #e5e7eb;
 }
 
 .course-card h3 {
   margin: 0 0 6px 0;
+  font-size: 1.05rem;
 }
 
+/* 報名按鈕置中 */
 .course-action {
   text-align: center;
-  margin-top: 16px;
+  margin-top: 20px;
 }
 
-@media (max-width: 768px) {
-  .course-list {
-    grid-template-columns: 1fr;
-  }
-}
 
 
