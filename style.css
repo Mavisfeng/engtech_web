@@ -320,10 +320,21 @@ footer {
 /* 個別課程卡片：用稍微淺一點的深藍，跟背景有層次 */
 .course-card {
   padding: 16px;
-  border-radius: 16px;
+  border-radius: 20px;
   background: #02081f;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
   color: #e5e7eb;
+  border: 3px solid #facc15;
+  box-shadow:
+    0 0 10px rgba(250, 204, 21, 0.5),
+    0 8px 24px rgba(0, 0, 0, 0.6);
+  }
+  /* 滑鼠滑過去效果 */
+.course-card:hover {
+  transform: translateY(-4px);
+  border-color: #fde047;
+  box-shadow: 0 0 18px rgba(250, 204, 21, 0.7);
+  transition: 0.2s;
 }
 
 .course-card h3 {
