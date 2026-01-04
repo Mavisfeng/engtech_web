@@ -294,4 +294,46 @@ footer {
     display: block;
   }
 }
+/* ========== news frontpage ========== */
+.latest-courses {
+  margin-top: 32px;
+  padding: 24px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #ffffff 0%, #f3f6ff 100%);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+.latest-courses .section-title {
+  margin-bottom: 16px;
+  font-size: 1.6rem;
+}
+
+.course-list {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.course-card {
+  padding: 16px;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.course-card h3 {
+  margin: 0 0 6px 0;
+}
+
+.course-action {
+  text-align: center;
+  margin-top: 16px;
+}
+
+@media (max-width: 768px) {
+  .course-list {
+    grid-template-columns: 1fr;
+  }
+}
+
 
